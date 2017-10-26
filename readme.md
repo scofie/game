@@ -1,26 +1,16 @@
-# laravel-multi-auth-admin
-> 包含前后台登录认证以及权限管理的后台系统，模板为`color admin`
-
-![image1](http://7xuntv.com1.z0.glb.clouddn.com/zhanghaobao1.png)
-
-![image2](http://7xuntv.com1.z0.glb.clouddn.com/zhanghaobao2.png)
-
-![image3](http://7xuntv.com1.z0.glb.clouddn.com/zhanghaobao3.png)
-
+# laravel-game-manager
+> 只要是后台用户数据管理
+> 它是一套管理系统，前端的应用还是需要重新调整
 # 说明
 如果喜欢请点个star
 
 需要color admin的朋友请群下载，Laravel开发交流群：658533928
 
-![image4](http://7xuntv.com1.z0.glb.clouddn.com/658533928.JPG?imageMogr2/thumbnail/!50p)
-
-# 演示地址
-[http://laravel.ranbl.com](http://laravel.ranbl.com)
 # 安装
 
 ## 克隆资源库
 ```shell
-git clone https://github.com/jwwb681232/laravel-multi-auth-admin.git ./
+git clone https://github.com/scofie/game.git 
 ```
 ## 安装依赖关系
 ```shell
@@ -70,7 +60,7 @@ location / {
 }
 ```
 ## 访问
-[http://xxx.com/admin](http://xxx.com/admin)
+[http://xxx.com/admin](http://admin.xxxx.com)
 
 后台账号:`admin@admin.com`
 
