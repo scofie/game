@@ -41,4 +41,51 @@ class RouteServiceProvider extends ServiceProvider
             require app_path('Http/Routes/routes.php');
         });
     }
+
+    /**
+     * Define the routes for the application.
+     *
+     * @param  \Illuminate\Routing\Router  $router
+     * @return void
+     */
+    protected function mapApiRouter( Router $router)
+    {
+        //暂无API 接口路由
+    }
+    /**
+     * Define the routes for the application.
+     *
+     * @param  \Illuminate\Routing\Router  $router
+     * @return void
+     */
+    protected function mapWebRouter( Router $router)
+    {
+        $router->group(['namespace' => $this->namespace], function ($router) {
+            require app_path('Http/Routes/routes.php');
+        });
+    }
+    /**
+     * Define the routes for the application.
+     *
+     * @param  \Illuminate\Routing\Router  $router
+     * @return void
+     */
+    protected function mapAdminRouter( Router $router)
+    {
+        $router->group(['namespace' => $this->namespace], function ($router) {
+            require app_path('Http/Routes/routes.php');
+        });
+    }
+    /**
+     * Define the routes for the application.
+     *
+     * @param  \Illuminate\Routing\Router  $router
+     * @return void
+     */
+    protected function maoWeChatRouter( Router $router)
+    {
+        $router->group(['namespace' => $this->namespace], function ($router) {
+            require app_path('Http/Routes/routes.php');
+        });
+    }
 }
