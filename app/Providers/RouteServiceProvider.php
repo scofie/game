@@ -35,11 +35,15 @@ class RouteServiceProvider extends ServiceProvider
      * @param  \Illuminate\Routing\Router  $router
      * @return void
      */
-    public function map(Router $router)
+    public function map( Router $router )
     {
-        $router->group(['namespace' => $this->namespace], function ($router) {
-            require app_path('Http/Routes/routes.php');
-        });
+        $this->maoWeChatRouter( $router );
+
+        $this->mapAdminRouter( $router );
+
+        $this->mapWebRouter( $router );
+
+        $this->mapApiRouter( $router );
     }
 
     /**
@@ -48,7 +52,7 @@ class RouteServiceProvider extends ServiceProvider
      * @param  \Illuminate\Routing\Router  $router
      * @return void
      */
-    protected function mapApiRouter( Router $router)
+    protected function mapApiRouter(Router $router)
     {
         //暂无API 接口路由
     }
@@ -61,7 +65,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRouter( Router $router)
     {
         $router->group(['namespace' => $this->namespace], function ($router) {
-            require app_path('Http/Routes/routes.php');
+            require app_path('Http/Routes/gameWeb.php');
         });
     }
     /**
@@ -73,7 +77,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapAdminRouter( Router $router)
     {
         $router->group(['namespace' => $this->namespace], function ($router) {
-            require app_path('Http/Routes/routes.php');
+            require app_path('Http/Routes/gameAdmin.php');
         });
     }
     /**
@@ -82,10 +86,10 @@ class RouteServiceProvider extends ServiceProvider
      * @param  \Illuminate\Routing\Router  $router
      * @return void
      */
-    protected function maoWeChatRouter( Router $router)
+    protected function maoWeChatRouter(Router $router)
     {
         $router->group(['namespace' => $this->namespace], function ($router) {
-            require app_path('Http/Routes/routes.php');
+            require app_path('Http/Routes/gameWeChat.php');
         });
     }
 }
