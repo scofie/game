@@ -1,10 +1,7 @@
 <?php
 
 Route::group(['middleware' => ['auth:users']], function ($router) {
-    $router->get('/', [
-        'uses' => 'UserController@index',
-        'as' => 'users.index',
-    ]);
+    $router->get('/', [ 'uses' => 'UserController@index','as' => 'users.index',]);
 });
 
 Route::get('login', ['uses' => 'AuthController@index', 'as' => 'users.auth.index',]);

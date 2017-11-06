@@ -54,9 +54,9 @@ return [
 
         'mysql' => [
             'driver'    => 'mysql',
-            'host'      => env('DB_HOST', 'game_db'),
+            'host'      => env('DB_HOST', '127.0.0.1'),
             'database'  => env('DB_DATABASE', 'root'),
-            'username'  => env('DB_USERNAME', 'forge'),
+            'username'  => env('DB_USERNAME', 'game_db'),
             'password'  => env('DB_PASSWORD', 'qwer1234'),
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
