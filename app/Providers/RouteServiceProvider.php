@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Config;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -15,6 +16,17 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     protected $namespace = 'App\Http\Controllers';
+
+
+    /**
+     * This domain is applied to the controller routes in your routes file.
+     *
+     * In addition, it is set as the URL generator's root namespace.
+     *
+     * @var string
+     */
+
+    protected $domain    =  '';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -37,13 +49,30 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map( Router $router )
     {
-        $this->maoWeChatRouter( $router );
+        $router->group([
+            'namespace' => $this->namespace, 'middleware' => 'web',
+        ], function ($router) {
 
-        $this->mapAdminRouter( $router );
+            $domain =   Config::get('domain');
 
-        $this->mapWebRouter( $router );
+            if( strpos($domain, 'wx') !== false ) {
 
-        $this->mapApiRouter( $router );
+                require app_path('Http/Routes/gameWeChat.php');
+
+            }elseif( strpos($domain, 'admin') !== false){
+
+                require app_path('Http/Routes/gameAdmin.php');
+
+            }elseif( strpos($domain, 'app') !== false){
+
+                $this->mapApiRouter( $router );
+
+            }else{
+                //require app_path('Http/Routes/gameWeb.php');
+                $this->mapWebRouter ($router);
+            }
+        });
+
     }
 
     /**
@@ -62,11 +91,10 @@ class RouteServiceProvider extends ServiceProvider
      * @param  \Illuminate\Routing\Router  $router
      * @return void
      */
-    protected function mapWebRouter( Router $router)
+    protected function mapWebRouter( Router $router )
     {
-        $router->group(['namespace' => $this->namespace], function ($router) {
-            require app_path('Http/Routes/gameWeb.php');
-        });
+        $domain =   Config::get('domain');
+        require app_path('Http/Routes/gameWeb.php');
     }
     /**
      * Define the routes for the application.
@@ -74,11 +102,10 @@ class RouteServiceProvider extends ServiceProvider
      * @param  \Illuminate\Routing\Router  $router
      * @return void
      */
-    protected function mapAdminRouter( Router $router)
+    protected function mapAdminRouter( Router $router, $domain)
     {
-        $router->group(['namespace' => $this->namespace], function ($router) {
-            require app_path('Http/Routes/gameAdmin.php');
-        });
+        $domain =   Config::get('domain');
+        require app_path('Http/Routes/gameAdmin.php');
     }
     /**
      * Define the routes for the application.
@@ -86,10 +113,10 @@ class RouteServiceProvider extends ServiceProvider
      * @param  \Illuminate\Routing\Router  $router
      * @return void
      */
-    protected function maoWeChatRouter(Router $router)
+    protected function maoWeChatRouter(Router $router, $domain)
     {
-        $router->group(['namespace' => $this->namespace], function ($router) {
-            require app_path('Http/Routes/gameWeChat.php');
-        });
+        $domain =   Config::get('domain');
+        require app_path('Http/Routes/gameWeChat.php');
     }
+
 }

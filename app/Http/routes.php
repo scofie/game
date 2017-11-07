@@ -28,10 +28,14 @@ Route::get('/', ['middleware' => 'web', function () {
 
 Route::group(['middleware' => ['web']], function () {
     Route::group(['prefix' => 'user', 'namespace' => 'User'], function () {
-        require app_path('Http/Routes/user.php');
+        require app_path('Http/Routes/gameWeb.php');
     });
 
-    Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
-        require app_path('Http/Routes/admin.php');
+    Route::group(['prefix' => '/', 'namespace' => 'Admin'], function () {
+        require app_path('Http/Routes/gameAdmin.php');
+    });
+
+    Route::group(['prefix' => '/', 'namespace' => 'WeChat'], function () {
+        require app_path('Http/Routes/gameWeChat.php');
     });
 });
