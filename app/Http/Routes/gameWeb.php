@@ -1,21 +1,22 @@
 <?php
 
-Route::group(['middleware' => ['auth:users']], function ($router) {
-    $router->get('/', [ 'uses' => 'UserController@index','as' => 'users.index',]);
+Route::group(['prefix' => '/', 'namespace' => 'Wep' ,'domain'=> $domain], function () {
+
+    Route::get('/',                       ['as' => 'users.index',                 'uses' => 'UserController@index']);
+
+    Route::get('login',                   ['as' => 'users.auth.index',            'uses' => 'AuthController@index']);
+
+    Route::post('login',                  ['as' => 'users.auth.login',            'uses' => 'AuthController@login']);
+
+    Route::get('logout',                  ['as' => 'users.auth.logout',           'uses' => 'AuthController@logout']);
+
+    Route::get('register',                ['as' => 'users.auth.register',         'uses' => 'AuthController@getRegister']);
+
+    Route::post('register',               ['as' => 'users.auth.register',         'uses' => 'AuthController@postRegister']);
+
+    Route::post('password/reset',         ['as' => 'users.password.reset',        'uses' => 'PasswordController@reset']);
+
+    Route::post('password/email',         ['as' => 'users.password.email',        'uses' => 'PasswordController@sendResetLinkEmail']);
 });
 
-Route::get('login', ['uses' => 'AuthController@index', 'as' => 'users.auth.index',]);
 
-Route::post('login', ['uses' => 'AuthController@login', 'as' => 'users.auth.login',]);
-
-Route::get('logout', ['uses' => 'AuthController@logout', 'as' => 'users.auth.logout',]);
-
-Route::get('register', ['uses' => 'AuthController@getRegister', 'as' => 'users.auth.register',]);
-
-Route::post('register', ['uses' => 'AuthController@postRegister', 'as' => 'users.auth.register',]);
-
-Route::get('password/reset/{token?}', ['uses' => 'PasswordController@showResetForm', 'as' => 'users.password.reset',]);
-
-Route::post('password/reset', ['uses' => 'PasswordController@reset', 'as' => 'users.password.reset',]);
-
-Route::post('password/email', ['uses' => 'PasswordController@sendResetLinkEmail', 'as' => 'users.password.email',]);
