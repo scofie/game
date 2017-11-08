@@ -1,22 +1,24 @@
 <?php
 
-Route::group(['prefix' => '/', 'namespace' => 'Wep' ,'domain'=> $domain], function () {
 
-    Route::get('/',                       ['as' => 'users.index',                 'uses' => 'UserController@index']);
+Route::group(['prefix' => '/', 'namespace' => 'Web' ,'domain'=> $domain], function ()
+{
 
-    Route::get('login',                   ['as' => 'users.auth.index',            'uses' => 'AuthController@index']);
+    Route::get('/',                       'Home\IndexController@index');
 
-    Route::post('login',                  ['as' => 'users.auth.login',            'uses' => 'AuthController@login']);
+    Route::get('login',                   'User\AuthController@index');
 
-    Route::get('logout',                  ['as' => 'users.auth.logout',           'uses' => 'AuthController@logout']);
+    Route::post('login',                  'User\AuthController@login');
 
-    Route::get('register',                ['as' => 'users.auth.register',         'uses' => 'AuthController@getRegister']);
+    Route::get('logout',                  'User\AuthController@logout');
 
-    Route::post('register',               ['as' => 'users.auth.register',         'uses' => 'AuthController@postRegister']);
+    Route::get('register',                'User\AuthController@getRegister');
 
-    Route::post('password/reset',         ['as' => 'users.password.reset',        'uses' => 'PasswordController@reset']);
+    Route::post('register',               'User\AuthController@postRegister');
 
-    Route::post('password/email',         ['as' => 'users.password.email',        'uses' => 'PasswordController@sendResetLinkEmail']);
+    Route::post('password/reset',         'User\PasswordController@reset');
+
+    Route::post('password/email',         'User\PasswordController@sendResetLinkEmail');
 });
 
 

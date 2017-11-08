@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Web\Home;
 
 
 use App\Http\Controllers\Web\WebController;
+use Illuminate\Http\Request;
 
-class HomeController extends WebController
+
+class IndexController extends WebController
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('users.index');
+        return view('web.home.index');
     }
 }
