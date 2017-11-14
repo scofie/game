@@ -16,6 +16,7 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     protected $namespace = 'App\Http\Controllers';
+    protected $prefix    = '/';
 
 
     /**
@@ -49,27 +50,26 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map( Router $router )
     {
-        $router->group([
-            'namespace' => $this->namespace, 'middleware' => 'web',
-        ], function ($router) {
+        $router->group(
+            ['namespace' => $this->namespace], function ($router) {
 
             $domain =   Config::get('domain');
 
             if( strpos($domain, 'wx') !== false ) {
 
-                require app_path('Http/Routes/gameWeChat.php');
+                require app_path('Http/Routes/routeWeChat.php');
 
             }elseif( strpos($domain, 'admin') !== false){
 
-                require app_path('Http/Routes/gameAdmin.php');
+                require app_path('Http/Routes/routeAdmin.php');
 
             }elseif( strpos($domain, 'app') !== false){
 
                 $this->mapApiRouter( $router );
 
             }else{
-                //require app_path('Http/Routes/gameWeb.php');
-                $this->mapWebRouter ($router);
+                require app_path('Http/Routes/routeWeb.php');
+//                $this->mapWebRouter ($router);
             }
         });
 
@@ -94,7 +94,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRouter( Router $router )
     {
         $domain =   Config::get('domain');
-        require app_path('Http/Routes/gameWeb.php');
+        require app_path('Http/Routes/routeWeb.php');
     }
     /**
      * Define the routes for the application.
@@ -105,7 +105,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapAdminRouter( Router $router, $domain)
     {
         $domain =   Config::get('domain');
-        require app_path('Http/Routes/gameAdmin.php');
+        require app_path('Http/Routes/routeAdmin.php');
     }
     /**
      * Define the routes for the application.
@@ -116,7 +116,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function maoWeChatRouter(Router $router, $domain)
     {
         $domain =   Config::get('domain');
-        require app_path('Http/Routes/gameWeChat.php');
+        require app_path('Http/Routes/routeWeChat.php');
     }
 
 }

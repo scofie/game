@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Auth\AuthController as Controller;
 
 class AdminController extends Controller
 {
