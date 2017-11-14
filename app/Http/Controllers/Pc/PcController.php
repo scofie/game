@@ -6,12 +6,12 @@
  * Time: 17:51
  */
 
-namespace App\Http\Controllers\Web;
+namespace App\Http\Controllers\Pc;
 
 
 use App\Http\Controllers\Controller;
 
-class WebController extends Controller
+class PcController extends Controller
 {
 
 }

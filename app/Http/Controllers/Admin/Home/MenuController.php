@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Home;
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Requests\MenuRequest;
 use App\Repositories\Eloquent\MenuRepositoryEloquent as MenuRepository;
-use App\Http\Controllers\Controller;
-class MenuController extends Controller
+class MenuController extends AdminController
 {
     private $menu;
 

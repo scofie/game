@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Home;
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Models\Admin;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-class IndexController extends Controller
+class IndexController extends AdminController
 {
     public function index()
     {

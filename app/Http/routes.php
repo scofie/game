@@ -12,7 +12,7 @@
  */
 
 Route::get('/', ['middleware' => 'web', function () {
-    return view('index');
+    Route::get('/',                       function (){return 'This is Home Page';});
 }]);
 
 /*
@@ -25,17 +25,3 @@ Route::get('/', ['middleware' => 'web', function () {
 | kernel and includes session state, CSRF protection, and more.
 |
  */
-
-Route::group(['middleware' => ['web']], function () {
-    Route::group(['prefix' => 'user', 'namespace' => 'User'], function () {
-        require app_path('Http/Routes/gameWeb.php');
-    });
-
-    Route::group(['prefix' => '/', 'namespace' => 'Admin'], function () {
-        require app_path('Http/Routes/gameAdmin.php');
-    });
-
-    Route::group(['prefix' => '/', 'namespace' => 'WeChat'], function () {
-        require app_path('Http/Routes/gameWeChat.php');
-    });
-});

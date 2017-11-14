@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Web\User;
+namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Auth\PasswordController as Controller;
 
 class PasswordController extends Controller
 {
-    protected $broker = 'users';
-    protected $redirectTo = 'user';
+    protected $broker = 'admin';
+    protected $redirectTo = 'admin';
 }

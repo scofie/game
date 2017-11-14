@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\User;
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Repositories\Eloquent\RoleRepositoryEloquent;
 use Illuminate\Http\Request;
 use App\Http\Requests\AdminUserRequest;
-use App\Http\Controllers\Controller;
 use App\Repositories\Eloquent\AdminUserRepositoryEloquent as AdminUserRepository;
 
-class AdminUserController extends Controller
+class AdminUserController extends AdminController
 {
     public $adminUser;
     public $role;

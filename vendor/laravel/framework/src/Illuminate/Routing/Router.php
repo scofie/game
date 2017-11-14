@@ -576,6 +576,7 @@ class Router implements RegistrarContract
      */
     protected function prefix($uri)
     {
+        //return trim(trim($this->getLastGroupPrefix(), '/').'/'.trim($uri, '/'), '/') ?: '/';
         return trim(trim($this->getLastGroupPrefix(), '/').'/'.trim($uri, '/'), '/') ?: '/';
     }
 
