@@ -1,21 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Auth;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\RoleRequest;
 use App\Http\Requests\PermissionRequest;
-use App\Repositories\Eloquent\RoleRepositoryEloquent as RoleRepository;
+use App\Http\Controllers\Controller;
 use App\Repositories\Eloquent\PermissionRepositoryEloquent as PermissionRepository;
 
-class RoleController extends AdminController
+class PermissionController extends Controller
 {
-    public $role;
     public $permission;
-    public function __construct(RoleRepository $roleRepository,PermissionRepository $permissionRepository)
+
+    public function __construct(PermissionRepository $permissionRepository)
     {
-        $this->middleware('CheckPermission:role');
-        $this->role = $roleRepository;
+        $this->middleware('CheckPermission:permission');
         $this->permission = $permissionRepository;
     }
 
@@ -26,7 +24,7 @@ class RoleController extends AdminController
      */
     public function index()
     {
-        return view('admin.role.index');
+        return view('admin.permission.index');
     }
 
     /**
@@ -36,8 +34,7 @@ class RoleController extends AdminController
      */
     public function create()
     {
-        $permission = $this->permission->all(['id','display_name']);
-        return view('admin.role.create',compact('permission'));
+        return view('admin.permission.create');
     }
 
     /**
@@ -45,10 +42,10 @@ class RoleController extends AdminController
      * @param Request PermissionRequest
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(RoleRequest $request)
+    public function store(PermissionRequest $request)
     {
-        $this->role->createRole($request->all());
-        return redirect('admin/role');
+        $this->permission->createPermission($request->all());
+        return redirect('admin/permission');
     }
 
     /**
@@ -70,20 +67,20 @@ class RoleController extends AdminController
      */
     public function edit($id)
     {
-        $data = $this->role->editViewData($id);
-        return view('admin.role.edit',compact('data'));
+        $permission = $this->permission->find($id,['id','name','display_name','description'])->toArray();
+        return view('admin.permission.edit',compact('permission'));
     }
 
     /**
      * Update the specified resource in storage.
-     * @param RoleRequest $request
+     * @param MenuRequest $request
      * @param $id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(RoleRequest $request, $id)
+    public function update(PermissionRequest $request, $id)
     {
-        $this->role->updateRole($request->all(),$id);
-        return redirect('admin/role');
+        $this->permission->updatePermission($request->all(),$id);
+        return redirect('admin/permission');
     }
 
     /**
@@ -99,7 +96,7 @@ class RoleController extends AdminController
 
     public function ajaxIndex(Request $request)
     {
-        $result = $this->role->ajaxIndex($request);
+        $result = $this->permission->ajaxIndex($request);
         return response()->json($result,JSON_UNESCAPED_UNICODE);
     }
 }

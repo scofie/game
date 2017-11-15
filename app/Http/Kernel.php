@@ -28,7 +28,7 @@ class Kernel extends HttpKernel
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            //\App\Http\Middleware\VerifyCsrfToken::class,
+            \App\Http\Middleware\VerifyCsrfToken::class,
         ],
 
         'api' => [
@@ -49,18 +49,16 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
 
-
-        'auth.admin' => \App\Http\Middleware\AuthenticateAdmin::class,
         /**
          * RBAC
          */
-//        'role' => \Zizaco\Entrust\Middleware\EntrustRole::class,
-//        'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
-//        'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
-//
-//        /**
-//         * 检查权限
-//         */
-//        'CheckPermission' => \App\Http\Middleware\CheckPermission::class,
+        'role' => \Zizaco\Entrust\Middleware\EntrustRole::class,
+        'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
+        'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
+
+        /**
+         * 检查权限
+         */
+        'CheckPermission' => \App\Http\Middleware\CheckPermission::class,
     ];
 }

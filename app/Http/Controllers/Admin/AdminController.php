@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Auth\AuthController as Controller;
+use App\Http\Controllers\Admin\Auth\AuthController;
 
-class AdminController extends Controller
+class AdminController extends AuthController
 {
     public function index()
     {

@@ -32,7 +32,7 @@
                 <!-- end login-header -->
                 <!-- begin login-content -->
                 <div class="login-content">
-                    @if(count($errors)>0)
+                    @if(isset($errors) && count($errors)>0)
                         <div class="alert alert-danger">
                             <ul>
                                 @foreach($errors->all() as $error)
@@ -41,7 +41,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form action="{{ url('admin/login') }}" method="POST" class="margin-bottom-0">
+                    <form action="{{ url('admin/loginIn') }}" method="POST" class="margin-bottom-0">
                         {{ csrf_field() }}
                         <div class="form-group m-b-15">
                             <input type="text" name="email" class="form-control input-lg" placeholder="邮箱地址" value="{{ old('email') }}"/>

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Home;
 
-use App\Http\Controllers\Admin\AdminController;
 use App\Models\Admin;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
-class IndexController extends AdminController
+use App\Http\Controllers\Controller;
+class IndexController extends Controller
 {
     public function index()
     {
