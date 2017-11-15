@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Admin\User;
+namespace App\Http\Controllers\Admin\Manage;
 
-use App\Http\Controllers\Admin\AdminController;
 use App\Repositories\Eloquent\RoleRepositoryEloquent;
 use Illuminate\Http\Request;
 use App\Http\Requests\AdminUserRequest;
+use App\Http\Controllers\Controller;
 use App\Repositories\Eloquent\AdminUserRepositoryEloquent as AdminUserRepository;
 
-class AdminUserController extends AdminController
+class AdminUserController extends Controller
 {
     public $adminUser;
     public $role;
@@ -49,7 +49,7 @@ class AdminUserController extends AdminController
     public function store(AdminUserRequest $request)
     {
         $this->adminUser->createAdminUser($request->all());
-        return redirect('admin/adminuser');
+        return redirect('admin.adminuser');
     }
 
     /**

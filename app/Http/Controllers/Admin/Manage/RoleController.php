@@ -1,18 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Home;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\RoleRequest;
 use App\Http\Requests\PermissionRequest;
+use App\Http\Controllers\Controller;
+use App\Repositories\Eloquent\RoleRepositoryEloquent as RoleRepository;
 use App\Repositories\Eloquent\PermissionRepositoryEloquent as PermissionRepository;
 
-class PermissionController extends AdminController
+class RoleController extends Controller
 {
+    public $role;
     public $permission;
-
-    public function __construct(PermissionRepository $permissionRepository)
+    public function __construct(RoleRepository $roleRepository,PermissionRepository $permissionRepository)
     {
-        $this->middleware('CheckPermission:permission');
+        $this->middleware('CheckPermission:role');
+        $this->role = $roleRepository;
         $this->permission = $permissionRepository;
     }
 
@@ -23,7 +27,7 @@ class PermissionController extends AdminController
      */
     public function index()
     {
-        return view('admin.permission.index');
+        return view('admin.role.index');
     }
 
     /**
@@ -33,7 +37,8 @@ class PermissionController extends AdminController
      */
     public function create()
     {
-        return view('admin.permission.create');
+        $permission = $this->permission->all(['id','display_name']);
+        return view('admin.role.create',compact('permission'));
     }
 
     /**
@@ -41,10 +46,10 @@ class PermissionController extends AdminController
      * @param Request PermissionRequest
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(PermissionRequest $request)
+    public function store(RoleRequest $request)
     {
-        $this->permission->createPermission($request->all());
-        return redirect('admin/permission');
+        $this->role->createRole($request->all());
+        return redirect('admin/role');
     }
 
     /**
@@ -66,20 +71,20 @@ class PermissionController extends AdminController
      */
     public function edit($id)
     {
-        $permission = $this->permission->find($id,['id','name','display_name','description'])->toArray();
-        return view('admin.permission.edit',compact('permission'));
+        $data = $this->role->editViewData($id);
+        return view('admin.role.edit',compact('data'));
     }
 
     /**
      * Update the specified resource in storage.
-     * @param MenuRequest $request
+     * @param RoleRequest $request
      * @param $id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(PermissionRequest $request, $id)
+    public function update(RoleRequest $request, $id)
     {
-        $this->permission->updatePermission($request->all(),$id);
-        return redirect('admin/permission');
+        $this->role->updateRole($request->all(),$id);
+        return redirect('admin/role');
     }
 
     /**
@@ -95,7 +100,7 @@ class PermissionController extends AdminController
 
     public function ajaxIndex(Request $request)
     {
-        $result = $this->permission->ajaxIndex($request);
+        $result = $this->role->ajaxIndex($request);
         return response()->json($result,JSON_UNESCAPED_UNICODE);
     }
 }

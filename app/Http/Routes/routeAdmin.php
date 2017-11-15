@@ -1,31 +1,35 @@
 <?php
 
-Route::group(['prefix' => '/', 'namespace' => 'Admin' ,'domain'=> $domain,'middleware' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['web'],'namespace' => 'Admin','domain'=> $domain], function ($router) {
+    //后台用户登录注册路由
+    $router->get('login',           ['uses' => 'Auth\AuthController@index','as' => 'admin.auth.index']);
+    $router->post('loginIn',        ['uses' => 'Auth\AuthController@login','as' => 'admin.auth.login']);
+    $router->get('logout',          ['uses' => 'Auth\AuthController@logout','as' => 'admin.auth.logout']);
+//    $router->get('register', ['uses' => 'AuthController@getRegister','as' => 'admin.auth.register']);
+//    $router->post('register', ['uses' => 'AuthController@postRegister','as' => 'admin.auth.register']);
+    //后台用户修改密码路由
+    $router->get('password/reset/{token?}', ['uses' => 'Auth\PasswordController@showResetForm','as' => 'admin.password.reset']);
+    $router->post('password/reset',         ['uses' => 'Auth\PasswordController@reset','as' => 'admin.password.reset']);
+    $router->post('password/email',         ['uses' => 'Auth\PasswordController@sendResetLinkEmail','as' => 'admin.password.email']);
 
-    Route::get('/', function() {
-            echo 'This is Admin Home';
-        });
-    Route::get('/login', function() {
-        echo 'This is Admin Login Page';
-    });
-//    Route::get('/', ['uses' => 'AdminController@index','as' => 'admin.index']);
-//    //后台用户
-//    Route::get('/adminuser/ajaxIndex',['uses'=>'AdminUserController@ajaxIndex','as'=>'admin.adminuser.ajaxIndex']);
-//
-//    //权限管理
-//    Route::get('/permission/ajaxIndex',['uses'=>'PermissionController@ajaxIndex','as'=>'admin.permission.ajaxIndex']);
-//
-//    //角色管理
-//    Route::get('/role/ajaxIndex',['uses'=>'RoleController@ajaxIndex','as'=>'admin.role.ajaxIndex']);
-//
-//    Route::get('/login', ['uses' => 'AuthController@index','as' => 'admin.auth.index']);
-//    Route::post('/login', ['uses' => 'AuthController@login','as' => 'admin.auth.login']);
-//    Route::get('/logout', ['uses' => 'AuthController@logout','as' => 'admin.auth.logout']);
-//    Route::get('/register', ['uses' => 'AuthController@getRegister','as' => 'admin.auth.register']);
-//    Route::post('/register', ['uses' => 'AuthController@postRegister','as' => 'admin.auth.register']);
-//    Route::get('/password/reset/{token?}', ['uses' => 'PasswordController@showResetForm','as' => 'admin.password.reset']);
-//    Route::post('/password/reset', ['uses' => 'PasswordController@reset','as' => 'admin.password.reset']);
-//    Route::post('/password/email', ['uses' => 'PasswordController@sendResetLinkEmail','as' => 'admin.password.email']);
+    $router->get('/',                       ['uses' => 'AdminController@index','as' => 'admin.index']);
 
+    $router->resource('index', 'IndexController');
+
+    //目录
+    $router->resource('menus', 'MenuController');
+
+    //后台用户
+    $router->get('adminuser/ajaxIndex',['uses'=>'Manage\AdminUserController@ajaxIndex','as'=>'admin.adminuser.ajaxIndex']);
+    //$router->resource('adminuser', 'AdminUserController');
+    $router->resource('adminuser', 'Manage\AdminUserController@index');
+
+    //权限管理
+    $router->get('permission/ajaxIndex',['uses'=>'PermissionController@ajaxIndex','as'=>'admin.permission.ajaxIndex']);
+    $router->resource('permission', 'PermissionController');
+
+    //角色管理
+    $router->get('role/ajaxIndex',['uses'=>'RoleController@ajaxIndex','as'=>'admin.role.ajaxIndex']);
+    $router->resource('role', 'RoleController');
 });
 

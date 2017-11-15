@@ -38,10 +38,11 @@ class AdminUserRepositoryEloquent extends BaseRepository implements AdminUserRep
         $draw = $request->input('draw', 1);
         $start = $request->input('start', 0);
         $length = $request->input('length', 10);
-        $order['name'] = $request->input('columns.' . $request->input('order.0.column') . '.name');
+        $order['name'] = $request->input('columns.' . $request->input('order.0.column') . '.name','id');
         $order['dir'] = $request->input('order.0.dir', 'asc');
         $search['value'] = $request->input('search.value', '');
         $search['regex'] = $request->input('search.regex', false);
+
         if ($search['value']) {
             if ($search['regex'] == 'true') {//传过来的是字符串不能用bool值比较
                 $this->model = $this->model->where('email', 'like', "%{$search['value']}%")->orWhere('name', 'like', "%{$search['value']}%");

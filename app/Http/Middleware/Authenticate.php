@@ -17,12 +17,21 @@ class Authenticate
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        dd ($guard);
         if (Auth::guard($guard)->guest()) {
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect()->guest('/login');
+                switch ($guard) {
+                    case 'admin':
+                        $path = 'admin/login';
+                        break;
+
+                    default:
+                        $path = 'user/login';
+                        break;
+                }
+
+                return redirect()->guest($path);
             }
         }
 

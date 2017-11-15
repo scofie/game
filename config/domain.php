@@ -6,18 +6,19 @@
  * Time: 14:24
  */
 
-    $defaultDomain  =   env ('APP_DOMAIN','');
-    $hostGroup  =   [
-        env ('APP_DOMAIN_WX' ,''),
-        env ('APP_DOMAIN_PC',''),
-        env ('APP_DOMAIN_ADMIN','')
-    ];
+$defaultDomain  =   env ('APP_DOMAIN','');
 
-    $serverHost = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '';
+$hostGroup  =   [
+    env ('APP_DOMAIN_WX' ,''),
+    env ('APP_DOMAIN_PC',''),
+    env ('APP_DOMAIN_ADMIN','')
+];
 
-    if( $serverHost && in_array ($serverHost , $hostGroup) ) {
+$serverHost = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '';
 
-        return $serverHost;
-    }
+if( $serverHost && in_array ($serverHost , $hostGroup) ) {
 
-    return $defaultDomain;
+    return $serverHost;
+}
+
+return $defaultDomain;

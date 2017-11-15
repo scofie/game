@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Auth\AuthController as Controller;
-use App\Models\Admin;
+use App\Models\User;
 use Validator;
 
 class AuthController extends Controller
 {
-    protected $guard = 'admin';
-    protected $redirectTo = 'admin';
+    protected $guard = 'users';
+    protected $redirectTo = 'user';
 
     /**
      * Get a validator for an incoming registration request.
@@ -21,7 +21,7 @@ class AuthController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:admins',
+            'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
         ]);
     }
@@ -30,11 +30,11 @@ class AuthController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return Admin
+     * @return User
      */
     protected function create(array $data)
     {
-        return Admin::create([
+        return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => $data['password'],
@@ -43,17 +43,11 @@ class AuthController extends Controller
 
     public function index()
     {
-        return view('admin.auth.auth');
+        return view('users.auth.auth');
     }
 
     public function getRegister()
     {
-        return view('admin.auth.register');
-    }
-
-    public function logout()
-    {
-        auth('admin')->logout();
-        return redirect('admin/login');
+        return view('users.auth.register');
     }
 }

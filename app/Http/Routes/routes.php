@@ -12,7 +12,7 @@
  */
 
 Route::get('/', ['middleware' => 'web', function () {
-    Route::get('/',                       function (){return 'This is Home Page';});
+    return view('index');
 }]);
 
 /*
@@ -25,3 +25,21 @@ Route::get('/', ['middleware' => 'web', function () {
 | kernel and includes session state, CSRF protection, and more.
 |
  */
+
+//Route::group(['middleware' => ['web']], function () {
+//
+//    Route::group(['prefix' => '/', 'namespace' => 'Pc'], function () {
+//        $domain = \Config::get('domain');
+//        require app_path('Http/Routes/routeWeb.php');
+//    });
+//
+//    Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
+//        $domain = \Config::get('domain');
+//        require app_path('Http/Routes/routeAdmin.php');
+//    });
+//    //加载微信
+////    Route::group(['prefix' => '/', 'namespace' => 'Weixin'], function () {
+////        require app_path('Http/Routes/routeWeChat.php');
+////    });
+//});
+

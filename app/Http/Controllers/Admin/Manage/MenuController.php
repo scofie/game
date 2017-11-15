@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Home;
 
-use App\Http\Controllers\Admin\AdminController;
 use App\Http\Requests\MenuRequest;
 use App\Repositories\Eloquent\MenuRepositoryEloquent as MenuRepository;
-class MenuController extends AdminController
+use App\Http\Controllers\Controller;
+class MenuController extends Controller
 {
     private $menu;
 
