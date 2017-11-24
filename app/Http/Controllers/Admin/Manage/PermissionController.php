@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Auth;
+namespace App\Http\Controllers\Admin\Manage;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\PermissionRequest;

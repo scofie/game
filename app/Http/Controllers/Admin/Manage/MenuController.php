@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Home;
+namespace App\Http\Controllers\Admin\Manage;
 
 use App\Http\Requests\MenuRequest;
 use App\Repositories\Eloquent\MenuRepositoryEloquent as MenuRepository;
