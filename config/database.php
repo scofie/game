@@ -53,8 +53,13 @@ return [
         ],
 
         'mysql' => [
+            'read' => [
+                'host' => env('DB_HOST_READ', '127.0.0.1')
+            ],
+            'write' => [
+                'host' => env('DB_HOST_WRITE', '127.0.0.1')
+            ],
             'driver'    => 'mysql',
-            'host'      => env('DB_HOST', 'localhost'),
             'database'  => env('DB_DATABASE', 'game_db'),
             'username'  => env('DB_USERNAME', 'root'),
             'password'  => env('DB_PASSWORD', 'qwer1234'),
